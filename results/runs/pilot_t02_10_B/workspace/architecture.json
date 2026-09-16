@@ -1,0 +1,42 @@
+{
+  "state_machine": [
+    "draft",
+    "submitted",
+    "approved",
+    "rejected",
+    "needs_finance"
+  ],
+  "roles_and_transitions": {
+    "Employee": [
+      "Draft \u2192 Submitted"
+    ],
+    "Manager": [
+      "Submitted \u2192 Approved (<= manager_limit_usd)",
+      "Submitted \u2192 Rejected",
+      "Submitted \u2192 Needs_Finance (if claim > manager_limit_usd)"
+    ],
+    "Finance": [
+      "Needs_Finance \u2192 Approved (<= finance_limit_usd)",
+      "Needs_Finance \u2192 Rejected"
+    ]
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail_fields": [
+    "actor_role",
+    "from_status",
+    "to_status",
+    "timestamp",
+    "comments"
+  ],
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ],
+  "requirements": {
+    "commitments": [
+      "Path correct from submission to approval/rejection.",
+      "Claims above manager limit need finance role intervention.",
+      "Audit log entry per claim state transition.",
+      "Validation against schemas/expense_claim.schema.json."
+    ]
+  }
+}

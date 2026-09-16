@@ -1,0 +1,3 @@
+[{"actor_role": "reviewer", "from_status": "changes_requested", "to_status": "in_review", "ts": "2023-10-05T10:00:00Z"},
+{"actor_role": "reviewer", "from_status": "in_review", "to_status": "approved", "ts": "2023-10-06T12:00:00Z"},
+{"actor_role": "maintainer", "from_status": "approved", "to_status": "merged", "ts": "2023-10-07T15:40:00Z"}]

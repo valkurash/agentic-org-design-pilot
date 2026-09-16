@@ -1,0 +1,62 @@
+{
+  "state_machine": {
+    "draft": [
+      "submitted"
+    ],
+    "submitted": [
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "approved": [],
+    "rejected": [],
+    "needs_finance": [
+      "approved",
+      "rejected"
+    ]
+  },
+  "roles": {
+    "employee": [
+      {
+        "from": "draft",
+        "to": "submitted"
+      }
+    ],
+    "manager": [
+      {
+        "from": "submitted",
+        "to": "approved"
+      },
+      {
+        "from": "submitted",
+        "to": "rejected"
+      }
+    ],
+    "finance": [
+      {
+        "from": "needs_finance",
+        "to": "approved"
+      },
+      {
+        "from": "needs_finance",
+        "to": "rejected"
+      }
+    ]
+  },
+  "policy_file": "policy/approval_limits.json",
+  "audit_trail_fields": [
+    "actor_role",
+    "from_status",
+    "to_status",
+    "timestamp"
+  ],
+  "modules": {
+    "data_model": "Schemas under schemas/expense_claim.schema.json for validation.",
+    "interfaces": "JSON schema validation for claims using schemas/, read-only interactions with policy/approval_limits.json for approvals.",
+    "module_boundaries": "The workflow operates between claim submission, validation, approval, or rejection without crossing into non-goals such as payroll features.",
+    "frozen_modules": [
+      "policy/approval_limits.json"
+    ],
+    "process_constraints": "Ensure all claims transition to an end state, specifically requiring review of 'other' category claims before manager approval."
+  }
+}

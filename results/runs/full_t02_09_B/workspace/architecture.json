@@ -1,0 +1,35 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "Employee": ["draft -> submitted"],
+      "Manager": ["submitted -> approved", "submitted -> needs_finance"],
+      "Finance": ["submitted -> approved"]
+    }
+  },
+  "roles": {
+    "Employee": {
+      "can_transition": ["draft -> submitted"]
+    },
+    "Manager": {
+      "can_approve": "amount <= manager_limit_usd"
+    },
+    "Finance": {
+      "can_approve": "amount > manager_limit_usd and amount <= finance_limit_usd"
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "ts"]
+  },
+  "interfaces": [],
+  "data_model": {
+    "claim": {
+      "fields": ["amount", "currency", "category", "memo"],
+      "allowed_categories": ["travel", "meals", "equipment", "other"]
+    }
+  },
+  "module_boundaries": {
+    "frozen_modules": ["policy/approval_limits.json", "src/"]
+  }
+}

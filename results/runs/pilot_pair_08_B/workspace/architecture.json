@@ -1,0 +1,33 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "Todo": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "reminder_time": "datetime",
+      "notified": "boolean"
+    }
+  },
+  "module_boundaries": {
+    "API Module": "Handles HTTP interactions and integrates auth.",
+    "Service Module": "Business logic for TODO and reminders",
+    "Data Access Module": "Database interactions",
+    "Notification Module": "Manages reminder notifications"
+  },
+  "frozen_modules": [
+    "auth/middleware.js"
+  ]
+}

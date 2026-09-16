@@ -1,0 +1,7 @@
+{
+  "claim_id": "claim_over_limit",
+  "actor_role": "Finance",
+  "from_status": "needs_finance",
+  "to_status": "approved",
+  "ts": "2023-11-24T14:28:12"
+}

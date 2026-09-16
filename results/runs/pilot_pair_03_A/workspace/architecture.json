@@ -1,0 +1,45 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "User": {
+      "id": "string",
+      "username": "string"
+    },
+    "TodoItem": {
+      "id": "string",
+      "user_id": "string",
+      "title": "string",
+      "description": "string",
+      "created_at": "datetime",
+      "completed": "boolean"
+    },
+    "Reminder": {
+      "id": "string",
+      "todo_id": "string",
+      "reminder_time": "datetime"
+    }
+  },
+  "module_boundaries": {
+    "auth": "Handles user authentication using session middleware.",
+    "api": "Handles HTTP requests and interfacing routes for TODO and reminder functionalities.",
+    "notifications": "Manages setting and delivering notifications to users.",
+    "storage": "Responsible for data storage and retrieval using a relational database."
+  },
+  "tech_stack": {
+    "backend": "Node.js or Python",
+    "database": "PostgreSQL",
+    "session_management": "Use existing middleware from auth/",
+    "notification_system": "In-app notification initially; extendable to other forms",
+    "load_testing": "Apache JMeter"
+  },
+  "constraints": {
+    "performance": "100 requests per second per instance",
+    "latency": "99th percentile latency under 200 milliseconds",
+    "no_dependency": "Do not depend on message queues."
+  }
+}

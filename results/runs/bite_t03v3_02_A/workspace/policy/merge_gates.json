@@ -1,0 +1,6 @@
+{
+  "required_checks": ["lint", "unit_tests"],
+  "merge_roles": ["reviewer", "maintainer"],
+  "author_cannot_merge": true,
+  "_comment": "FROZEN — do not edit; integrate via this file only (task_03)"
+}

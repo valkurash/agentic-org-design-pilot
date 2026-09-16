@@ -1,0 +1,23 @@
+[
+  {
+    "pr_id": "pr_seed_001",
+    "actor_role": "developer",
+    "from_status": "changes_requested",
+    "to_status": "in_review",
+    "timestamp": "2023-10-24T18:26:00Z"
+  },
+  {
+    "pr_id": "pr_seed_001",
+    "actor_role": "reviewer",
+    "from_status": "in_review",
+    "to_status": "approved",
+    "timestamp": "2023-10-25T10:15:00Z"
+  },
+  {
+    "pr_id": "pr_seed_001",
+    "actor_role": "maintainer",
+    "from_status": "approved",
+    "to_status": "merged",
+    "timestamp": "2023-10-25T12:42:00Z"
+  }
+]

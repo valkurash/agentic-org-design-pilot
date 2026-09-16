@@ -1,0 +1,16 @@
+[
+ {
+   "pr_id": "pr_seed_001",
+   "actor_role": "maintainer",
+   "from_status": "changes_requested",
+   "to_status": "approved",
+   "ts": "2023-09-30T14:48:00Z"
+ },
+ {
+   "pr_id": "pr_seed_001",
+   "actor_role": "maintainer",
+   "from_status": "approved",
+   "to_status": "merged",
+   "ts": "2023-09-30T15:00:00Z"
+ }
+]

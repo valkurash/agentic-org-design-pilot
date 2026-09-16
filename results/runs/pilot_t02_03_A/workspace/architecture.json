@@ -1,0 +1,64 @@
+{
+  "state_machine": {
+    "state": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft_to_submitted": {
+        "from": "draft",
+        "to": "submitted",
+        "allowed_roles": ["employee"],
+        "validation": "schemas/expense_claim.schema.json"
+      },
+      "submitted_to_approved": {
+        "from": "submitted",
+        "to": "approved",
+        "allowed_roles": ["manager", "finance"],
+        "constraints": {
+          "manager": {
+            "max_amount": "policy/approval_limits.json.manager_limit_usd"
+          },
+          "finance": {
+            "max_amount": "policy/approval_limits.json.finance_limit_usd"
+          }
+        }
+      },
+      "submitted_to_rejected": {
+        "from": "submitted",
+        "to": "rejected",
+        "allowed_roles": ["manager", "finance"]
+      },
+      "submitted_to_needs_finance": {
+        "from": "submitted",
+        "to": "needs_finance",
+        "allowed_roles": ["manager"],
+        "constraints": {
+          "exceeds_manager_limit": "policy/approval_limits.json.manager_limit_usd"
+        }
+      },
+      "needs_finance_to_approved": {
+        "from": "needs_finance",
+        "to": "approved",
+        "allowed_roles": ["finance"]
+      },
+      "needs_finance_to_rejected": {
+        "from": "needs_finance",
+        "to": "rejected",
+        "allowed_roles": ["finance"]
+      }
+    }
+  },
+  "roles": {
+    "employee": {
+      "actions": ["submit_claim"]
+    },
+    "manager": {
+      "actions": ["approve_claim", "reject_claim", "forward_to_finance"]
+    },
+    "finance": {
+      "actions": ["approve_claim", "reject_claim"]
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "timestamp"]
+  }
+}

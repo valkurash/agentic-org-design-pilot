@@ -1,0 +1,31 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "performance_constraints": "100 requests per second",
+  "tech_stack": "Node.js and Express",
+  "authentication_strategy": "Session-based using auth/middleware.js",
+  "data_model": {
+    "todo_item": {
+      "fields": {
+        "id": "UUID",
+        "user_id": "UUID",
+        "title": "string",
+        "description": "string",
+        "is_complete": "boolean",
+        "created_at": "datetime",
+        "updated_at": "datetime"
+      }
+    },
+    "reminder": {
+      "fields": {
+        "todo_id": "UUID",
+        "reminder_time": "datetime",
+        "triggered": "boolean"
+      }
+    }
+  }
+}

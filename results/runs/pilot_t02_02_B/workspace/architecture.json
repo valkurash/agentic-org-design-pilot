@@ -1,0 +1,26 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft": ["submitted"],
+      "submitted": ["approved", "rejected", "needs_finance"],
+      "needs_finance": ["approved", "rejected"],
+      "approved": [],
+      "rejected": []
+    }
+  },
+  "roles": {
+    "employee": ["draft", "submitted"],
+    "manager": ["approved", "rejected"],
+    "finance": ["approved", "rejected"]
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail_shape": {
+    "fields": ["actor_role", "from_status", "to_status", "ts"]
+  },
+  "constraints": {
+    "manager_limit_usd": 500,
+    "finance_limit_usd": 5000
+  },
+  "other_category_handling": "Prompt for documentation if claim is 'other'."
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "actor_role": "author",
+    "from_status": "open",
+    "to_status": "in_review",
+    "ts": "2023-11-05T10:00:00Z"
+  },
+  {
+    "actor_role": "reviewer",
+    "from_status": "in_review",
+    "to_status": "changes_requested",
+    "ts": "2023-11-06T09:00:00Z"
+  },
+  {
+    "actor_role": "author",
+    "from_status": "changes_requested",
+    "to_status": "in_review",
+    "ts": "2023-11-07T14:00:00Z"
+  }
+]

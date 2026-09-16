@@ -1,0 +1,38 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "Todo": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "reminder_datetime": "datetime",
+      "notified": "boolean"
+    }
+  },
+  "module_boundaries": {
+    "todos": "TODO CRUD only — no reminder-specific fields on the Todo model",
+    "reminders": "Separate Reminder entity/module for schedule + notify"
+  },
+  "frozen_modules": [
+    "src/utils/dateValidation.js"
+  ],
+  "requirements": {
+    "commitment": {
+      "tech_stack": "Node.js and Express",
+      "performance": "100 requests per second per API instance",
+      "deployment": "Single region without message queues"
+    }
+  }
+}

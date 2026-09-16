@@ -1,0 +1,47 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TODO Item": {
+      "id": "Unique identifier",
+      "title": "String",
+      "description": "String",
+      "completed": "Boolean",
+      "created_at": "DateTime",
+      "modified_at": "DateTime",
+      "reminder_datetime": "DateTime (optional)"
+    }
+  },
+  "module_boundaries": {
+    "API Module": "Exposes RESTful API endpoints",
+    "TODO Module": "Handles business logic for managing TODO items",
+    "Notification Module": "Manages notifications via email",
+    "Integration": "Middleware for session management"
+  },
+  "tech_stack": {
+    "Backend Framework": "Node.js with Express",
+    "Database": "PostgreSQL",
+    "Notification": "Nodemailer via SMTP"
+  },
+  "constraints": [
+    "Handle 100 requests per second",
+    "Stateless, single-region deployment",
+    "No message queues in initial version"
+  ],
+  "non_goals": [
+    "Exclude social sharing",
+    "Team or workspace functionality",
+    "Native mobile apps excluded",
+    "No changes to authentication"
+  ],
+  "acceptance_criteria": {
+    "CRUD Operations": "Functional via API",
+    "Reminder Notifications": "Email within 60 seconds of due",
+    "Performance Testing": "100 requests/second, latency < 200 ms",
+    "API Documentation": "Complete and clear"
+  }
+}

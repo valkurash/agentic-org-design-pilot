@@ -1,0 +1,94 @@
+{
+  "claim_state_machine": {
+    "states": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "transitions": [
+      {
+        "from": "draft",
+        "to": "submitted",
+        "actor_roles": [
+          "submitter"
+        ]
+      },
+      {
+        "from": "submitted",
+        "to": "approved",
+        "actor_roles": [
+          "manager",
+          "finance"
+        ]
+      },
+      {
+        "from": "submitted",
+        "to": "rejected",
+        "actor_roles": [
+          "manager",
+          "finance"
+        ]
+      },
+      {
+        "from": "submitted",
+        "to": "needs_finance",
+        "actor_roles": [
+          "manager"
+        ]
+      },
+      {
+        "from": "needs_finance",
+        "to": "approved",
+        "actor_roles": [
+          "finance"
+        ]
+      },
+      {
+        "from": "needs_finance",
+        "to": "rejected",
+        "actor_roles": [
+          "finance"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "manager": {
+      "approval_limit": 500,
+      "transitions": [
+        "submitted_to_approved",
+        "submitted_to_rejected",
+        "submitted_to_needs_finance"
+      ]
+    },
+    "finance": {
+      "approval_limit": 5000,
+      "transitions": [
+        "needs_finance_to_approved",
+        "needs_finance_to_rejected"
+      ]
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "timestamp"
+    ]
+  },
+  "data_model": {
+    "schema_file": "schemas/expense_claim.schema.json"
+  },
+  "module_boundaries": {
+    "state_machine": "Handles claim status transitions",
+    "audit": "Records status transitions in the audit log",
+    "validation": "Ensures compliance with expense_claim.schema.json"
+  },
+  "frozen_modules": {
+    "policy": "policy/approval_limits.json"
+  }
+}

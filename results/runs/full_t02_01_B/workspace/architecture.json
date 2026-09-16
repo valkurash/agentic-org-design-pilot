@@ -1,0 +1,51 @@
+{
+  "state_machine": {
+    "statuses": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "roles_and_transitions": {
+      "employee": {
+        "transitions": [
+          "draft -> submitted"
+        ]
+      },
+      "manager": {
+        "transitions": [
+          "submitted -> approved within manager limit",
+          "submitted -> rejected",
+          "submitted -> needs_finance if exceeds manager limit"
+        ]
+      },
+      "finance": {
+        "transitions": [
+          "needs_finance -> approved",
+          "needs_finance -> rejected",
+          "submitted -> approved",
+          "submitted -> rejected"
+        ]
+      }
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": [
+      "actor_role",
+      "status_transition",
+      "timestamp",
+      "claim_id",
+      "notes"
+    ]
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ],
+  "requirements_commitments": [
+    "JSON storage for claim data",
+    "Reuse existing policy",
+    "Audit trails for all transactions"
+  ]
+}

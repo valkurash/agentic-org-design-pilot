@@ -1,0 +1,7 @@
+[{
+  "actor_role": "Escalation",
+  "from_status": "submitted",
+  "to_status": "rejected",
+  "ts": "2023-11-27T19:09:38Z",
+  "reason": "Insufficient documentation for category 'other'."
+}]

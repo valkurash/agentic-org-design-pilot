@@ -1,0 +1,10 @@
+{
+  "claim_id": "claim_other",
+  "submitter_id": "emp_002",
+  "amount_usd": 85,
+  "currency": "USD",
+  "category": "other",
+  "status": "needs_finance",
+  "memo": "SEED E5 — miscellaneous; documentation requirements for category other undefined",
+  "approver_role": "manager"
+}

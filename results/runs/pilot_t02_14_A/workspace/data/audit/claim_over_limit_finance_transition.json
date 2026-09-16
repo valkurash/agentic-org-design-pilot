@@ -1,0 +1,6 @@
+{
+  "actor_role": "Finance",
+  "from_status": "needs_finance",
+  "to_status": "approved",
+  "ts": "2023-11-23T13:30:00Z"
+}

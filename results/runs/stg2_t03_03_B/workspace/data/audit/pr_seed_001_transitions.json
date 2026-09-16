@@ -1,0 +1,8 @@
+[
+  {"actor_role": "developer", "from_status": "draft", "to_status": "open", "ts": "2023-10-10T10:00:00Z"},
+  {"actor_role": "reviewer", "from_status": "open", "to_status": "in_review", "ts": "2023-10-11T15:00:00Z"},
+  {"actor_role": "reviewer", "from_status": "in_review", "to_status": "changes_requested", "ts": "2023-10-12T12:00:00Z"},
+  {"actor_role": "developer", "from_status": "changes_requested", "to_status": "in_review", "ts": "2023-10-13T09:00:00Z"},
+  {"actor_role": "reviewer", "from_status": "changes_requested", "to_status": "approved", "ts": "2023-10-13T14:00:00Z"},
+  {"actor_role": "reviewer", "from_status": "approved", "to_status": "merged", "ts": "2023-10-13T15:00:00Z"}
+]

@@ -1,0 +1,30 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "Employee": {
+        "draft": "submitted"
+      },
+      "Manager": {
+        "submitted": ["approved", "rejected"]
+      },
+      "Finance": {
+        "submitted": ["needs_finance", "approved", "rejected"],
+        "needs_finance": ["approved", "rejected"]
+      }
+    }
+  },
+  "roles": ["Employee", "Manager", "Finance"],
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail_fields": ["actor_role", "from_status", "to_status", "timestamp"],
+  "frozen_modules": ["policy/approval_limits.json"],
+  "module_boundaries": {
+    "State Management": "Handles state transitions and role-based logic.",
+    "Policy Integration": "Reads and interprets policy/approval_limits.json values.",
+    "Audit Logging": "Maintains audit trails for actions and state changes.",
+    "Validation": "Validates claims using schemas/expense_claim.schema.json."
+  },
+  "requirements": {
+    "commitments": "Ensure all requirements outlined by PM are followed without alterations."
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "state_machine": {
+    "states": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "transitions": {
+      "employee": [
+        {
+          "from": "draft",
+          "to": "submitted"
+        }
+      ],
+      "manager": [
+        {
+          "from": "submitted",
+          "to": "approved",
+          "constraints": [
+            "amount <= manager_limit_usd"
+          ]
+        },
+        {
+          "from": "submitted",
+          "to": "rejected"
+        },
+        {
+          "from": "submitted",
+          "to": "needs_finance",
+          "constraints": [
+            "amount > manager_limit_usd",
+            "category == other"
+          ]
+        }
+      ],
+      "finance": [
+        {
+          "from": "needs_finance",
+          "to": "approved"
+        },
+        {
+          "from": "needs_finance",
+          "to": "rejected"
+        }
+      ]
+    }
+  },
+  "roles": [
+    "employee",
+    "manager",
+    "finance"
+  ],
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail_shape": {
+    "actor_role": "string",
+    "from_status": "string",
+    "to_status": "string",
+    "ts": "timestamp"
+  },
+  "modules": {
+    "workflow_states": "src/workflow_states.js",
+    "audit_trail": "src/audit_trail.js"
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ]
+}

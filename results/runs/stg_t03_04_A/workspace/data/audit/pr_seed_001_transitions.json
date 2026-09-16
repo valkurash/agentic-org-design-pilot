@@ -1,0 +1,22 @@
+{
+  "transitions": [
+    {
+      "pr_id": "pr_seed_001",
+      "actor_role": "reviewer",
+      "actor_id": "rev_001",
+      "from_status": "changes_requested",
+      "to_status": "in_review",
+      "ts": "2023-10-20T12:00:00Z",
+      "comment": "Arch bypass fixed, ready for merge"
+    },
+    {
+      "pr_id": "pr_seed_001",
+      "actor_role": "maintainer",
+      "actor_id": "main_001",
+      "from_status": "in_review",
+      "to_status": "merged",
+      "ts": "2023-10-20T12:30:00Z",
+      "comment": "Final merge after review acceptance"
+    }
+  ]
+}

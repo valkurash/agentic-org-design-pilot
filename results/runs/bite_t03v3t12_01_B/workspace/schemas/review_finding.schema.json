@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["finding_id", "pr_id", "status"],
+  "properties": {
+    "finding_id": { "type": "string" },
+    "pr_id": { "type": "string" },
+    "reviewer_id": { "type": "string" },
+    "status": { "enum": ["open", "addressed", "wontfix", "deferred"] },
+    "summary": { "type": "string" },
+    "required_action": { "type": "string" },
+    "evidence_path": { "type": ["string", "null"] },
+    "severity": { "type": ["string", "null"] }
+  }
+}

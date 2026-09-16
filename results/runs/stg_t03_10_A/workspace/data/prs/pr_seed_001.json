@@ -1,0 +1,9 @@
+{
+  "pr_id": "pr_seed_001",
+  "title": "Add inventory adjust endpoint",
+  "author_id": "emp_dev",
+  "status": "merged",
+  "head_ref": "feature/inventory-adjust",
+  "base_ref": "main",
+  "memo": "SEED R1/R2 — Now complies with architecture via src/repo/ usage"
+}

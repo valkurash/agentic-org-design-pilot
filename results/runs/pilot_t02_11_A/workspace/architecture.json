@@ -1,0 +1,30 @@
+{
+  "state_machine": {
+    "states": ["Draft", "Submitted", "Approved", "Rejected", "Needs Finance"],
+    "transitions": {
+      "Draft": ["Submitted"],
+      "Submitted": ["Approved", "Needs Finance", "Rejected"],
+      "Needs Finance": ["Approved", "Rejected"]
+    }
+  },
+  "roles": {
+    "employee": "Can create and submit claims",
+    "manager": "Can approve or reject claims within the manager limit",
+    "finance": "Can approve or reject claims requiring finance",
+    "submitter_restriction": "Submitters cannot approve their own claims"
+  },
+  "policy_integration": {
+    "path": "policy/approval_limits.json",
+    "thresholds": {
+      "manager_limit_usd": 500,
+      "finance_limit_usd": 5000
+    }
+  },
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "ts"]
+  },
+  "data_requirements": {
+    "json": "Claims must adhere to schemas/expense_claim.schema.json",
+    "seed_processing": "Claims in data/claims/ must end at approved or rejected"
+  }
+}

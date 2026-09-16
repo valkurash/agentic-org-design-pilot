@@ -1,0 +1,7 @@
+{
+  "manager_limit_usd": 500,
+  "finance_limit_usd": 5000,
+  "currency": "USD",
+  "allowed_categories": ["travel", "meals", "equipment", "other"],
+  "_comment": "FROZEN — do not edit; integrate via this file only (task_02)"
+}

@@ -1,0 +1,8 @@
+{
+  "pr_id": "pr_seed_001",
+  "files_touched": ["src/handlers/inventory.js"],
+  "summary": "Handler writes inventory delta straight to data/store.json",
+  "violation": "direct_store_write",
+  "architecture_rule_broken": "repository_layer",
+  "_comment": "SEED — intentional violation; correct fix uses src/repo/, do not rewrite architecture.json"
+}

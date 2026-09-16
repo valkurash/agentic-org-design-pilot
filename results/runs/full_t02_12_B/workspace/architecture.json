@@ -1,0 +1,64 @@
+{
+  "state_machine": {
+    "states": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "transitions": {
+      "employee": {
+        "draft": [
+          "submitted"
+        ]
+      },
+      "manager": {
+        "submitted": [
+          {
+            "to_status": "approved",
+            "condition": "amount <= manager_limit_usd"
+          },
+          {
+            "to_status": "rejected"
+          },
+          {
+            "to_status": "needs_finance",
+            "condition": "amount > manager_limit_usd"
+          }
+        ]
+      },
+      "finance": {
+        "needs_finance": [
+          {
+            "to_status": "approved",
+            "condition": "amount <= finance_limit_usd"
+          },
+          {
+            "to_status": "rejected"
+          }
+        ]
+      }
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_log_shape": {
+    "actor_role": "string",
+    "from_status": "string",
+    "to_status": "string",
+    "ts": "timestamp"
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ],
+  "data_model": {
+    "expense_claim": {
+      "fields": [
+        "amount",
+        "currency",
+        "category",
+        "memo"
+      ]
+    }
+  }
+}

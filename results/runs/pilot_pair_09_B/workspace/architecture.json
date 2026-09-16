@@ -1,0 +1,50 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TodoItem": {
+      "id": "UUID",
+      "title": "String",
+      "description": "String",
+      "created_at": "Timestamp",
+      "updated_at": "Timestamp"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "reminder_time": "Timestamp",
+      "notification_sent": "Boolean"
+    }
+  },
+  "module_boundaries": {
+    "API Module": "Handles routing and requests for CRUD operations and reminders",
+    "Auth Module": "Uses the auth/middleware.js for sessions validation",
+    "Notification Module": "Manages in-app notifications when reminders are triggered",
+    "Data Access Module": "Interfaces with the database for todos and reminders"
+  },
+  "tech_stack": {
+    "Node.js": "For server-side operations",
+    "Express": "For building REST API",
+    "Database": "Use PostgreSQL",
+    "Load Testing Tools": "Apache JMeter, Artillery"
+  },
+  "frozen_modules": [
+    "auth/middleware.js"
+  ],
+  "requirements": {
+    "Scope": {
+      "CRUD Operations": "Users can Create, Read, Update, and Delete TODO items.",
+      "Reminder Functionality": "Set reminder datetime and send notifications"
+    },
+    "Constraints": {
+      "Tech Stack": "Node.js and Express",
+      "Performance Requirements": "API to handle 100 requests/second",
+      "Authentication": "Use auth/middleware.js without modification",
+      "Deployment": "Single-region without message queue"
+    }
+  }
+}

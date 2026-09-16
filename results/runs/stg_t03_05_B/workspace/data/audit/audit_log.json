@@ -1,0 +1,10 @@
+[
+  {
+    "action": "status_change",
+    "pr_id": "pr_seed_001",
+    "actor_role": "reviewer",
+    "from_status": "changes_requested",
+    "to_status": "approved",
+    "ts": "2023-11-01T14:00:00Z"
+  }
+]

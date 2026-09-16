@@ -1,0 +1,47 @@
+{
+  "interfaces": [],
+  "data_model": {
+    "claim_statuses": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "roles": {
+      "Employee": [
+        "submit"
+      ],
+      "Manager": [
+        "approve",
+        "reject",
+        "needs_finance"
+      ],
+      "Finance": [
+        "approve",
+        "reject"
+      ]
+    },
+    "audit_trail_fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "ts"
+    ]
+  },
+  "module_boundaries": {
+    "state_machine": "Handles claim status transitions",
+    "audit_trail": "Records each claim transition",
+    "policy_integration": "Reads and applies limits from policy/approval_limits.json"
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ],
+  "requirements": {
+    "commitments": [
+      "Approvals and transitions must adhere to the limits in policy/approval_limits.json",
+      "All transitions must be logged with an audit trail",
+      "Claims categorized as 'other' must prompt documentation requests"
+    ]
+  }
+}

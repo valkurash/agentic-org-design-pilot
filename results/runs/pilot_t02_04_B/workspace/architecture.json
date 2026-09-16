@@ -1,0 +1,86 @@
+{
+  "state_machine": {
+    "states": [
+      "draft",
+      "submitted",
+      "needs_finance",
+      "approved",
+      "rejected"
+    ],
+    "transitions": {
+      "draft": {
+        "submit": {
+          "to": "submitted",
+          "role": "employee"
+        }
+      },
+      "submitted": {
+        "approve": {
+          "to": "approved",
+          "role": "manager",
+          "condition": "amount <= manager_limit_usd AND category in allowed_categories"
+        },
+        "reject": {
+          "to": "rejected",
+          "role": "manager",
+          "condition": "category in allowed_categories"
+        },
+        "finance_review": {
+          "to": "needs_finance",
+          "role": "manager",
+          "condition": "amount > manager_limit_usd"
+        }
+      },
+      "needs_finance": {
+        "approve": {
+          "to": "approved",
+          "role": "finance",
+          "condition": "amount <= finance_limit_usd"
+        },
+        "reject": {
+          "to": "rejected",
+          "role": "finance"
+        }
+      }
+    }
+  },
+  "roles": {
+    "employee": {
+      "transitions": [
+        "submit"
+      ]
+    },
+    "manager": {
+      "transitions": [
+        "approve",
+        "reject",
+        "finance_review"
+      ]
+    },
+    "finance": {
+      "transitions": [
+        "approve",
+        "reject"
+      ]
+    }
+  },
+  "data_model": {
+    "audit_trail": {
+      "fields": [
+        "actor_role",
+        "from_status",
+        "to_status",
+        "timestamp"
+      ]
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "module_boundaries": {
+    "data_layer": "Manage claims and audit records in JSON format",
+    "validation_layer": "Node.js helpers for schema validation",
+    "process_layer": "State machine and transitions"
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ]
+}

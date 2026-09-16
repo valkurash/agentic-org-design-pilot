@@ -1,0 +1,38 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft": ["submitted"],
+      "submitted": ["approved", "rejected", "needs_finance"],
+      "approved": [],
+      "rejected": [],
+      "needs_finance": ["approved", "rejected"]
+    }
+  },
+  "roles_transitions": {
+    "manager": {
+      "transitions": [
+        {"from": "submitted", "to": "approved", "condition": "amount <= manager_limit_usd"},
+        {"from": "submitted", "to": "rejected"}
+      ]
+    },
+    "finance": {
+      "transitions": [
+        {"from": "needs_finance", "to": "approved", "condition": "amount <= finance_limit_usd"},
+        {"from": "needs_finance", "to": "rejected"}
+      ]
+    }
+  },
+  "claim_submission": {
+    "fields": ["amount", "currency", "category", "memo"],
+    "allowed_values": {
+      "currency": "USD",
+      "category": ["travel", "meals", "equipment", "other"]
+    },
+    "validation": "schemas/expense_claim.schema.json"
+  },
+  "policy_file": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "ts"]
+  }
+}

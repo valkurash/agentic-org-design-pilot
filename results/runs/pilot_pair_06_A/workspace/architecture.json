@@ -1,0 +1,26 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "quantitative_constraints": {
+    "throughput": "100 requests per second",
+    "latency": "p99 latency under 200 milliseconds"
+  },
+  "design_constraints": {
+    "single_region": true,
+    "stateless": true
+  },
+  "tech_stack": {
+    "backend": "Node.js with Express",
+    "database": "PostgreSQL",
+    "auth": "Existing session middleware"
+  },
+  "modules": {
+    "api_module": "Handles HTTP requests and responses",
+    "reminder_service": "Background service for reminders",
+    "database_module": "Data persistence"
+  }
+}

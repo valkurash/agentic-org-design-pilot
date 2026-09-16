@@ -1,0 +1,37 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TodoItem": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "reminder_datetime": "ISO-8601 string, nullable",
+      "user_id": "UUID"
+    },
+    "User": {
+      "id": "UUID",
+      "email": "string"
+    }
+  },
+  "module_boundaries": {
+    "Todo Module": "Handles CRUD operations for TODO items.",
+    "Reminder Module": "Manages scheduling and notification for reminders.",
+    "Notification Module": "Sends email notifications for reminders reaching their scheduled time.",
+    "Auth Middleware": "Integrates existing session authentication without alterations."
+  },
+  "frozen_modules": [
+    "auth/middleware.js",
+    "utils/dateValidation.js"
+  ],
+  "requirements_commitments": [
+    "REST API supporting full CRUD for TODOs",
+    "Reminder notifications delivered within 60 seconds",
+    "Pass load test for 100 req/s, p99 < 200ms"
+  ]
+}

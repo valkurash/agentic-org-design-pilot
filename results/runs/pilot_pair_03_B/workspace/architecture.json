@@ -1,0 +1,46 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TodoItem": {
+      "id": "String",
+      "title": "String",
+      "description": "Text",
+      "due_date": "DateTime",
+      "reminder_datetime": "DateTime",
+      "user_id": "String"
+    },
+    "User": {
+      "id": "String",
+      "email": "String"
+    }
+  },
+  "module_boundaries": {
+    "APIModule": "Handles incoming HTTP requests and routes them to appropriate business logic.",
+    "TODOModule": "Implements CRUD operations for TODO items.",
+    "ReminderModule": "Schedules and sends email notifications based on reminders set.",
+    "NotificationService": "Handles sending email notifications.",
+    "PersistenceLayer": "Manages database interactions for storing data related to TODOs and reminders."
+  },
+  "frozen_modules": [
+    "auth"
+  ],
+  "requirements.commitments": {
+    "constraints": [
+      "The auth/ module is frozen and should not be modified.",
+      "Integrate using the existing session middleware.",
+      "The API must support a load of 100 requests per second per instance, maintaining a stateless API tier.",
+      "Deploy the application to a single-region setup.",
+      "Do not use a message queue in this version."
+    ],
+    "acceptanceCriteria": [
+      "Implementation of CRUD operations for TODO items via a REST API.",
+      "The system must trigger reminders and notify users within 60 seconds of the scheduled time during integration testing.",
+      "Load testing should demonstrate the system handling 100 requests per second for a duration of 60 seconds, maintaining a p99 latency of less than 200 milliseconds on the defined reference hardware."
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "pr_id": "pr_seed_001",
+  "actor_role": "engineer",
+  "actor_id": "emp_techlead",
+  "from_status": "changes_requested",
+  "to_status": "merged",
+  "ts": "2023-10-11T14:00:00Z",
+  "comment": "Finding addressed and merged by tech lead permission"
+}

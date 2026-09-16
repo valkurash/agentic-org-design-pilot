@@ -1,0 +1,65 @@
+{
+  "state_machine": {
+    "draft": "submitted",
+    "submitted": [
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "needs_finance": [
+      "approved",
+      "rejected"
+    ]
+  },
+  "roles": {
+    "Employee": {
+      "transitions": [
+        "draft \u2192 submitted"
+      ]
+    },
+    "Manager": {
+      "transitions": [
+        "submitted \u2192 approved",
+        "submitted \u2192 rejected",
+        "submitted \u2192 needs_finance"
+      ]
+    },
+    "Finance": {
+      "transitions": [
+        "needs_finance \u2192 approved",
+        "needs_finance \u2192 rejected"
+      ]
+    }
+  },
+  "policy_file": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "ts"
+    ]
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ],
+  "requirements": {
+    "constraints": [
+      "Claims stored as JSON conforming to schemas/expense_claim.schema.json",
+      "Process claims using thresholds from policy/approval_limits.json",
+      "No modification to the policy file"
+    ],
+    "non_goals": [
+      "No payroll implementation",
+      "No multi-currency handling",
+      "No mobile applications",
+      "No cryptocurrency reimbursements"
+    ],
+    "acceptance_criteria": [
+      "Successful submission processing to terminal status for amounts \u2264 500 USD",
+      "Claims > 500 USD require finance approval before 'approved' status",
+      "All seed claims must reach terminal status",
+      "Valid audit trail for each status change"
+    ]
+  }
+}

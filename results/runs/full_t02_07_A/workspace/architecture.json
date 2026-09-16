@@ -1,0 +1,32 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft": ["submitted"],
+      "submitted": ["approved", "rejected", "needs_finance"],
+      "needs_finance": ["approved", "rejected"]
+    }
+  },
+  "roles": {
+    "submitter": {
+      "permissions": ["submit"]
+    },
+    "manager": {
+      "permissions": ["approve", "reject"],
+      "limits": {
+        "max_amount": 500
+      }
+    },
+    "finance": {
+      "permissions": ["approve", "reject"],
+      "limits": {
+        "max_amount": 5000
+      }
+    }
+  },
+  "policy_file_path": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "ts"]
+  },
+  "categories": ["travel", "meals", "equipment", "other"]
+}

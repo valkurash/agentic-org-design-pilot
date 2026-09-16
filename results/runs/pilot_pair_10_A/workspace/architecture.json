@@ -1,0 +1,31 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TODO_Item": {
+      "id": "Unique identifier",
+      "title": "String",
+      "description": "String",
+      "creation_datetime": "Timestamp",
+      "completion_status": "Boolean",
+      "reminder_datetime": "Timestamp (optional)"
+    },
+    "Reminder_Notification": {
+      "id": "Unique identifier",
+      "todo_id": "Reference to TODO item",
+      "notification_sent": "Boolean",
+      "notification_message": "String"
+    }
+  },
+  "tech_stack": {
+    "server": "Node.js with Express",
+    "database": "MongoDB, PostgreSQL",
+    "authentication": "Session middleware from auth/middleware.js",
+    "notification": "Notification data stored in the database and accessible via API"
+  },
+  "constraints": "Handle at least 100 requests per second per instance while maintaining statelessness in the API tier. Ensure all authenticated requests originate using session validation."
+}

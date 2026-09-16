@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "expense_claim.schema.json",
+  "title": "ExpenseClaim",
+  "type": "object",
+  "required": ["claim_id", "submitter_id", "amount_usd", "category", "status", "memo"],
+  "properties": {
+    "claim_id": { "type": "string" },
+    "submitter_id": { "type": "string" },
+    "amount_usd": { "type": "number", "minimum": 0 },
+    "currency": { "type": "string", "const": "USD" },
+    "category": { "type": "string", "enum": ["travel", "meals", "equipment", "other"] },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "submitted", "approved", "rejected", "needs_finance"]
+    },
+    "memo": { "type": "string" },
+    "approver_role": {
+      "type": "string",
+      "enum": ["manager", "finance", "none"]
+    }
+  },
+  "additionalProperties": true
+}

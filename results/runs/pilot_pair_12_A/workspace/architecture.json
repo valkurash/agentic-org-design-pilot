@@ -1,0 +1,39 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TodoItem": {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "is_completed": "boolean",
+      "reminder_datetime": "datetime"
+    },
+    "Reminder": {
+      "id": "string",
+      "todo_id": "string",
+      "datetime": "datetime"
+    }
+  },
+  "module_boundaries": {
+    "api_module": "Handles routes and validation",
+    "service_module": "Contains business logic",
+    "data_module": "Interacts with database",
+    "notification_module": "Handles in-app notifications"
+  },
+  "tech_stack": {
+    "server": "Node.js and Express",
+    "database": "SQLite or PostgreSQL",
+    "authentication": "auth/middleware.js",
+    "validation": "src/utils/dateValidation.js"
+  },
+  "constraints": {
+    "performance": "100 requests/second",
+    "deployment": "Single-region deployment with no message queues",
+    "date_validation": "Limited to calendar dates"
+  }
+}

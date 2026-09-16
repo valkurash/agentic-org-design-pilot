@@ -1,0 +1,66 @@
+{
+  "state_machine": {
+    "states": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "transitions": {
+      "draft": [
+        "submitted"
+      ],
+      "submitted": [
+        "approved",
+        "rejected",
+        "needs_finance"
+      ],
+      "needs_finance": [
+        "approved",
+        "rejected"
+      ]
+    }
+  },
+  "roles": {
+    "employee": [
+      {
+        "transition": "draft -> submitted",
+        "restriction": "can't approve their own claims"
+      }
+    ],
+    "manager": [
+      {
+        "transition": "submitted -> approved",
+        "condition": "claim <= manager_limit_usd"
+      },
+      {
+        "transition": "submitted -> rejected"
+      },
+      {
+        "transition": "submitted -> needs_finance",
+        "condition": "claim > manager_limit_usd"
+      }
+    ],
+    "finance": [
+      {
+        "transition": "needs_finance -> approved"
+      },
+      {
+        "transition": "needs_finance -> rejected"
+      }
+    ]
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "ts"
+    ]
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ]
+}

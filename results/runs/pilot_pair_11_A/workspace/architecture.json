@@ -1,0 +1,39 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "User": {
+      "id": "string",
+      "username": "string",
+      "password": "string"
+    },
+    "TodoItem": {
+      "id": "string",
+      "userId": "string",
+      "title": "string",
+      "description": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "Reminder": {
+      "id": "string",
+      "todoItemId": "string",
+      "reminder_time": "datetime",
+      "created_at": "datetime"
+    }
+  },
+  "module_boundaries": {
+    "Auth Module": "Handle login and logout operations including session management",
+    "Todo Management Module": "Provides CRUD functionality for TODO items",
+    "Reminder Management Module": "Handles creation and cancellation of reminders",
+    "Notification Module": "In-app notifications when reminders are triggered"
+  },
+  "tech_stack": "Node.js and Express with PostgreSQL",
+  "constraints": {
+    "performance": "Handle up to 100 requests per second with p99 latency < 200ms"
+  }
+}

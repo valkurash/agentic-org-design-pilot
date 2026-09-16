@@ -1,0 +1,9 @@
+{
+  "claim_id": "claim_other",
+  "submitter_id": "emp_002",
+  "amount_usd": 85,
+  "currency": "USD",
+  "category": "other",
+  "status": "rejected",
+  "approver_role": "Escalation"
+}

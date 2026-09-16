@@ -1,0 +1,32 @@
+{
+  "state_machine": {
+    "statuses": ["Draft", "Submitted", "Approved", "Rejected", "Needs Finance"],
+    "transitions": {
+      "Employee": {
+        "Draft": ["Submitted"]
+      },
+      "Manager": {
+        "Submitted": ["Approved", "Rejected", "Needs Finance"],
+        "conditions": {
+          "approve_or_reject": "amount <= manager_limit_usd",
+          "needs_finance": "amount > manager_limit_usd"
+        }
+      },
+      "Finance": {
+        "Submitted": ["Approved", "Rejected"],
+        "Needs Finance": ["Approved", "Rejected"]
+      }
+    }
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "timestamp"
+    ]
+  },
+  "frozen_modules": ["policy/approval_limits.json"],
+  "roles": ["Employee", "Manager", "Finance"]
+}

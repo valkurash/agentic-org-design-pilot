@@ -1,0 +1,20 @@
+[
+  {
+    "actor_role": "Software Engineer",
+    "from_status": "changes_requested",
+    "to_status": "in_review",
+    "ts": "2023-11-28T20:44:00Z" // Example timestamp
+  },
+  {
+    "actor_role": "reviewer",
+    "from_status": "in_review",
+    "to_status": "approved",
+    "ts": "2023-11-28T22:00:00Z" // Example timestamp
+  },
+  {
+    "actor_role": "maintainer",
+    "from_status": "approved",
+    "to_status": "merged",
+    "ts": "2023-11-28T22:10:00Z" // Example timestamp
+  }
+]

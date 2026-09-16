@@ -1,0 +1,48 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TODO_Item": {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "isCompleted": "boolean",
+      "reminderDatetime": "datetime"
+    },
+    "Reminder": {
+      "id": "string",
+      "todoId": "string",
+      "reminderDatetime": "datetime"
+    }
+  },
+  "module_boundaries": {
+    "TODO_Management_Module": {
+      "interfaces": [
+        "POST /api/todos",
+        "GET /api/todos",
+        "PUT /api/todos/{id}",
+        "DELETE /api/todos/{id}"
+      ]
+    },
+    "Reminder_Management_Module": {
+      "interfaces": [
+        "POST /api/reminders"
+      ]
+    }
+  },
+  "tech_stack": {
+    "backend": "Node.js + Express",
+    "database": "PostgreSQL",
+    "auth": "Existing auth module with session middleware",
+    "deployment": "Single-region deployment"
+  },
+  "constraints": {
+    "request_rate": "100 req/s per instance",
+    "latency": "p99 latency under 200ms",
+    "reminder_delivery_time": "Within 60 seconds during integration tests"
+  }
+}

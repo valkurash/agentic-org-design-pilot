@@ -1,0 +1,38 @@
+{
+  "interfaces": [],
+  "data_model": {
+    "claim_states": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "roles": {
+      "employee": {
+        "can_transition": {
+          "draft": ["submitted"]
+        }
+      },
+      "manager": {
+        "can_transition": {
+          "submitted": [
+            "approved", 
+            "needs_finance",
+            "rejected"
+          ]
+        },
+        "approval_limit": "policy/approval_limits.json#manager_limit_usd"
+      },
+      "finance": {
+        "can_transition": {
+          "submitted": ["approved", "rejected"],
+          "needs_finance": ["approved", "rejected"]
+        },
+        "approval_limit": "policy/approval_limits.json#finance_limit_usd"
+      }
+    }
+  },
+  "module_boundaries": {},
+  "frozen_modules": ["policy/approval_limits.json"]
+}

@@ -1,0 +1,63 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TODO": {
+      "id": "UUID",
+      "title": "string",
+      "due_date": "datetime",
+      "completed": "boolean",
+      "reminder_datetime": "datetime"
+    }
+  },
+  "module_boundaries": {
+    "API": {
+      "description": "Handles HTTP requests for CRUD operations and reminder creation.",
+      "dependencies": [
+        "TodoService"
+      ]
+    },
+    "TodoService": {
+      "description": "Business logic for managing TODO items, including CRUD operations.",
+      "dependencies": [
+        "TodoRepository",
+        "ReminderService"
+      ]
+    },
+    "TodoRepository": {
+      "description": "Persistence layer for TODO items.",
+      "dependencies": [
+        "Database"
+      ]
+    },
+    "ReminderService": {
+      "description": "Handles scheduling and triggering of reminders.",
+      "dependencies": [
+        "NotificationService"
+      ]
+    },
+    "NotificationService": {
+      "description": "Handles sending notifications.",
+      "dependencies": []
+    }
+  },
+  "tech_stack": {
+    "language": "JavaScript/Node.js",
+    "framework": "Express.js",
+    "database": "PostgreSQL",
+    "authentication": "Session-based middleware",
+    "hosting": "AWS EC2",
+    "deployment": "Docker, single-region AWS deployment",
+    "reminders": "In-memory scheduler"
+  },
+  "constraints": {
+    "performance": "100 req/s",
+    "latency": "99th percentile latency below 200ms",
+    "single_region": true,
+    "no_message_queues": true
+  }
+}

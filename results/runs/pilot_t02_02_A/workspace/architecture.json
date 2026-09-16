@@ -1,0 +1,48 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft": ["submitted"],
+      "submitted": ["approved", "rejected", "needs_finance"],
+      "needs_finance": ["approved"],
+      "approved": [],
+      "rejected": []
+    }
+  },
+  "roles": {
+    "employee": {
+      "can_transition": {
+        "draft": ["submitted"]
+      }
+    },
+    "manager": {
+      "can_transition": {
+        "submitted": ["approved", "rejected"],
+        "conditional_transition": {
+          "approved": {
+            "condition": "amount <= 500",
+            "rule": "manager_limit_usd"
+          }
+        }
+      }
+    },
+    "finance": {
+      "can_transition": {
+        "submitted": ["needs_finance"],
+        "needs_finance": ["approved"]
+      }
+    }
+  },
+  "policy_integration": {
+    "file": "policy/approval_limits.json",
+    "conditions": {
+      "currency": "USD",
+      "manager_limit_usd": 500,
+      "finance_limit_usd": 5000,
+      "allowed_categories": ["travel", "meals", "equipment", "other"]
+    }
+  },
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "ts"]
+  }
+}

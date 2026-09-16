@@ -1,0 +1,36 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_models": {
+    "TodoItem": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "isCompleted": "boolean",
+      "reminderDatetime": "datetime",
+      "createdAt": "datetime",
+      "updatedAt": "datetime"
+    }
+  },
+  "module_boundaries": {
+    "auth": "Handles session validation using existing middleware",
+    "todo_management": "CRUD operations for TODO items",
+    "notification_system": "Handles email notifications for reminders",
+    "performance_monitoring": "Ensures 100 req/s with p99 latency under 200ms"
+  },
+  "tech_stack": {
+    "backend": "Node.js and Express",
+    "database": "PostgreSQL or MySQL",
+    "email_service": "Nodemailer",
+    "session_auth": "Existing middleware auth/middleware.js"
+  },
+  "constraints": {
+    "api_performance": "Supports 100 requests/s",
+    "deployment": "Single-region setup",
+    "no_modifications": "auth directory files"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "Todo": {
+      "id": "UUID",
+      "user_id": "UUID",
+      "title": "String",
+      "description": "String",
+      "completed": "Boolean",
+      "created_at": "Timestamp",
+      "updated_at": "Timestamp"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "remind_at": "Timestamp",
+      "notified": "Boolean"
+    }
+  },
+  "module_boundaries": {
+    "API Module": {
+      "description": "Handles HTTP requests and application logic for each endpoint.",
+      "responsibilities": [
+        "Compliance with 100 req/s constraint."
+      ]
+    },
+    "Data Access Layer": {
+      "description": "Abstracts database interactions.",
+      "responsibilities": [
+        "CRUD operations on TODOs and Reminders."
+      ]
+    },
+    "Notification Module": {
+      "description": "Manages sending in-app notifications.",
+      "responsibilities": [
+        "Integrate seamlessly with the TODO application."
+      ]
+    }
+  },
+  "tech_stack": {
+    "Backend": "Node.js with Express.js",
+    "Database": "PostgreSQL",
+    "Session Middleware": "Integration with the existing `auth/` module using session management."
+  },
+  "frozen_modules": [
+    "auth/"
+  ]
+}

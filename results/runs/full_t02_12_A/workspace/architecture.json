@@ -1,0 +1,30 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft": ["submitted"],
+      "submitted": ["approved", "rejected", "needs_finance"],
+      "needs_finance": ["approved", "rejected"],
+      "approved": [],
+      "rejected": []
+    }
+  },
+  "roles": {
+    "employee": {
+      "can_transition": ["draft"],
+      "restrictions": "cannot self-approve claims"
+    },
+    "manager": {
+      "can_transition": ["submitted", "needs_finance"],
+      "restrictions": "can approve up to 'manager_limit_usd'"
+    },
+    "finance": {
+      "can_transition": ["submitted", "needs_finance"],
+      "restrictions": "required for amounts over 'manager_limit_usd'"
+    }
+  },
+  "policy_file_path": "policy/approval_limits.json",
+  "audit_trail": {
+    "fields": ["actor_role", "from_status", "to_status", "timestamp"]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "interfaces": [],
+  "data_model": {
+    "claim_states": [
+      "draft",
+      "submitted",
+      "approved",
+      "rejected",
+      "needs_finance"
+    ],
+    "roles": {
+      "Employee": [
+        "draft",
+        "submitted"
+      ],
+      "Manager": [
+        "submitted",
+        "approved",
+        "rejected",
+        "needs_finance"
+      ],
+      "Finance": [
+        "needs_finance",
+        "approved",
+        "rejected"
+      ]
+    },
+    "audit_trail_fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "ts"
+    ]
+  },
+  "module_boundaries": {
+    "state_machine": "Defines state transitions and role permissions",
+    "policy_integration": "Reads thresholds and categories from policy/approval_limits.json"
+  },
+  "frozen_modules": [
+    "policy/approval_limits.json"
+  ],
+  "requirements": {
+    "commitments": [
+      "consistency with policy approvals",
+      "logging transitions",
+      "processing to terminal state"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "modules": {
+    "todos": "src/todos/",
+    "reminders": "src/reminders/",
+    "notifications": "src/notifications/"
+  },
+  "dataModels": {
+    "TODO": {
+      "id": "Unique identifier",
+      "title": "String",
+      "description": "String",
+      "status": "Enum [Pending, Completed]",
+      "created_at": "DateTime",
+      "updated_at": "DateTime",
+      "user_id": "References User Model"
+    },
+    "Reminder": {
+      "id": "Unique identifier",
+      "todo_id": "References TODO Model",
+      "reminder_time": "ISO-8601 DateTime",
+      "user_id": "References User Model"
+    }
+  },
+  "validation": "Extend src/utils/dateValidation.js for full ISO-8601 datetime validation",
+  "performance": "API must handle 100 requests per second",
+  "security": "Use auth/middleware.js to validate requests",
+  "notifications": "Notifications to be triggered within module boundaries",
+  "constraints": [
+    "Do not modify the auth module",
+    "Ensure separation between TODO and Reminder modules"
+  ],
+  "module_boundaries": {
+    "todos": "TODO CRUD only — no reminder-specific fields on the Todo model",
+    "reminders": "Separate Reminder entity/module for schedule + notify"
+  },
+  "data_model": {
+    "Todo": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "reminder_datetime": "datetime",
+      "notified": "boolean"
+    }
+  }
+}

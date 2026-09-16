@@ -1,0 +1,1 @@
+{"actor_role": "manager", "status_transition": "submitted -> needs_finance", "timestamp": "2023-10-10T10:00:00Z", "claim_id": "claim_over_limit", "notes": "Amount exceeds manager limit, requires finance intervention."}

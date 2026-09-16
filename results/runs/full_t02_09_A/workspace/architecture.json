@@ -1,0 +1,32 @@
+{
+  "state_machine": {
+    "states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+    "transitions": {
+      "draft": ["submitted"],
+      "submitted": ["approved", "rejected", "needs_finance"],
+      "needs_finance": ["approved", "rejected"]
+    }
+  },
+  "roles_and_permissions": {
+    "employee": ["draft", "submitted"],
+    "manager": {
+      "approve_limit_usd": "policy/approval_limits.json#manager_limit_usd",
+      "transitions": {
+        "submitted": ["approved", "rejected", "needs_finance"]
+      }
+    },
+    "finance": {
+      "transitions": {
+        "needs_finance": ["approved", "rejected"]
+      }
+    }
+  },
+  "claims_repository": "data/claims/*.json",
+  "policy": "policy/approval_limits.json",
+  "audit_trail_schema": {
+    "actor_role": "string",
+    "from_status": "string",
+    "to_status": "string",
+    "ts": "string"
+  }
+}

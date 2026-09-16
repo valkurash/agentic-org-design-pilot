@@ -1,0 +1,33 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "TodoItem": {
+      "ID": "UUID",
+      "Title": "String",
+      "Description": "String",
+      "Completed": "Boolean",
+      "ReminderDatetime": "DateTime (optional)",
+      "CreatedAt": "DateTime",
+      "UpdatedAt": "DateTime"
+    }
+  },
+  "module_boundaries": {
+    "TODO_Module": "Handles CRUD operations and in-app notifications",
+    "Reminder_Module": "Schedules reminders and notifications handling",
+    "Auth_Integration": "Utilizes existing session middleware"
+  },
+  "tech_stack": {
+    "Backend": "Node.js with Express.js",
+    "Database": "PostgreSQL",
+    "In-app Notification": "WebSockets",
+    "Load Balancer": "Nginx"
+  },
+  "frozen_modules": [
+    "auth/"
+  ]
+}

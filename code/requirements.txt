@@ -1,0 +1,7 @@
+# Minimal deps for experiment/stand (use repo .venv)
+pyyaml>=6.0
+openai>=1.40.0
+python-dotenv>=1.0.0
+# Optional:
+# anthropic
+# langgraph

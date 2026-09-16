@@ -1,0 +1,27 @@
+[{
+  "pr_id": "pr_seed_001",
+  "actor_role": "developer",
+  "actor_id": "emp_dev",
+  "from_status": "changes_requested",
+  "to_status": "in_review",
+  "ts": "2023-10-04T12:00:00Z",
+  "comment": "Resolved architecture finding and moved to review"
+},
+{
+  "pr_id": "pr_seed_001",
+  "actor_role": "reviewer",
+  "actor_id": "rev_001",
+  "from_status": "in_review",
+  "to_status": "approved",
+  "ts": "2023-10-05T09:30:00Z",
+  "comment": "Approved after architectural refactor"
+},
+{
+  "pr_id": "pr_seed_001",
+  "actor_role": "maintainer",
+  "actor_id": "main_001",
+  "from_status": "approved",
+  "to_status": "merged",
+  "ts": "2023-10-06T10:45:00Z",
+  "comment": "Merged after resolving all findings and approvals"
+}]

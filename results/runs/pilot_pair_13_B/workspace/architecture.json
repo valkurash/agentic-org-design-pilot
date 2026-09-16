@@ -1,0 +1,43 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "todo_item": {
+      "id": "UUID",
+      "title": "String",
+      "description": "String",
+      "isCompleted": "Boolean",
+      "createdAt": "Timestamp",
+      "updatedAt": "Timestamp",
+      "reminder": {
+        "reminderTime": "ISO-8601 Datetime",
+        "isNotified": "Boolean"
+      }
+    },
+    "user_session": {
+      "handled_by": "auth/middleware.js"
+    }
+  },
+  "module_boundaries": {
+    "todo_module": "Handles CRUD operations",
+    "reminder_module": "Handles reminder scheduling and notification",
+    "auth_module": "Session management",
+    "utils_module": "Date validation"
+  },
+  "tech_stack": {
+    "language": "Node.js",
+    "framework": "Express",
+    "email_delivery": "Nodemailer"
+  },
+  "frozen_modules": [
+    "auth/middleware.js",
+    "src/utils/dateValidation.js"
+  ],
+  "requirements": {
+    "performance": "100 req/s"
+  }
+}

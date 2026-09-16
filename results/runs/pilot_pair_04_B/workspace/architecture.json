@@ -1,0 +1,27 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "todo_item": {
+      "id": "UUID",
+      "title": "String",
+      "description": "String",
+      "due_date": "DateTime",
+      "reminder_datetime": "DateTime",
+      "user_id": "Foreign Key"
+    }
+  },
+  "module_boundaries": {
+    "api_module": "Handles all CRUD operations through defined HTTP routes.",
+    "database_module": "Manages data persistence in PostgreSQL.",
+    "notification_module": "Manages email notifications using NodeMailer.",
+    "authentication_module": "Handles session authentication through the existing frozen auth/ module."
+  },
+  "frozen_modules": [
+    "auth/"
+  ]
+}

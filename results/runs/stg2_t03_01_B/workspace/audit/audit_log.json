@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "actor_role": "reviewer",
+      "from_status": "changes_requested",
+      "to_status": "approved",
+      "timestamp": "2023-11-02T10:00:00Z"
+    }
+  ]
+}

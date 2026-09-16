@@ -1,0 +1,53 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "constraints": {
+    "performance": "The API needs to handle 100 requests/second per instance.",
+    "technology": "Use Node.js with Express for the backend and integrate with existing authentication via auth/middleware.js. Utilize src/utils/dateValidation.js for date validation.",
+    "moduleBoundaries": "Keep a separate Reminder entity/module and do not merge reminder-specific fields into the TODO model. Keep TODOs under src/todos/ and Reminders under src/reminders/.",
+    "deployment": "The application will be deployed in a single-region without message queuing in version 1."
+  },
+  "modules": {
+    "TODOs": {
+      "path": "src/todos/"
+    },
+    "Reminders": {
+      "path": "src/reminders/"
+    }
+  },
+  "techStack": {
+    "backend": "Node.js with Express",
+    "middleware": "auth/middleware.js for authentication",
+    "utilities": "src/utils/dateValidation.js for date validation"
+  },
+  "acceptanceCriteria": {
+    "TODO_CRUD": "Implement a REST API for creating, listing, marking as complete, and deleting TODO items.",
+    "ReminderFunctionality": "Implement endpoints for creating and canceling reminders and ensure reminders verify authenticated requests using session validation methods. Validate reminder datetime in full ISO-8601 format before processing.",
+    "NotificationTiming": "Ensure that reminders trigger a notification within 60 seconds of the scheduled time during integration testing.",
+    "Performance": "Load test should sustain 100 requests/second for 60 seconds, with the 99th percentile latency under 200 milliseconds on standard hardware."
+  },
+  "module_boundaries": {
+    "todos": "TODO CRUD only — no reminder-specific fields on the Todo model",
+    "reminders": "Separate Reminder entity/module for schedule + notify"
+  },
+  "data_model": {
+    "Todo": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "reminder_datetime": "datetime",
+      "notified": "boolean"
+    }
+  }
+}

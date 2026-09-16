@@ -1,0 +1,14 @@
+[
+  {
+    "actor_role": "reviewer",
+    "from_status": "changes_requested",
+    "to_status": "approved",
+    "ts": "2023-10-04T12:00:00Z"
+  },
+  {
+    "actor_role": "reviewer",
+    "from_status": "approved",
+    "to_status": "merged",
+    "ts": "2023-10-04T12:05:00Z"
+  }
+]

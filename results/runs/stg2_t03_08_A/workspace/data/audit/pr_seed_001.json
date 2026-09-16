@@ -1,0 +1,1 @@
+[{"actor_role":"system","from_status":"changes_requested","to_status":"in_review","ts":"2023-11-28T12:00:00Z"},{"actor_role":"system","finding_id":"finding_arch_bypass","from_status":"open","to_status":"addressed","ts":"2023-11-28T12:05:00Z"}]

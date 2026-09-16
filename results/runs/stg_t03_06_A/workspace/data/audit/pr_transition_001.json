@@ -1,0 +1,9 @@
+{
+  "pr_id": "pr_seed_001",
+  "actor_role": "reviewer",
+  "actor_id": "rev_001",
+  "from_status": "changes_requested",
+  "to_status": "in_review",
+  "ts": "2023-10-10T17:30:00Z",
+  "comment": "Handler code refactored to comply with repository layer compliance."
+}

@@ -1,0 +1,38 @@
+{
+  "claim_states": ["draft", "submitted", "approved", "rejected", "needs_finance"],
+  "transitions": {
+    "draft": ["submitted"],
+    "submitted": ["approved", "rejected", "needs_finance"],
+    "needs_finance": ["approved", "rejected"],
+    "approved": [],
+    "rejected": []
+  },
+  "roles": {
+    "employee": {
+      "can_transition": {
+        "draft": ["submitted"]
+      }
+    },
+    "manager": {
+      "can_transition": {
+        "submitted": ["approved", "rejected"],
+        "conditions": "Amount must be less than or equal to manager_limit_usd (500 USD) as specified in policy/approval_limits.json"
+      }
+    },
+    "finance": {
+      "can_transition": {
+        "needs_finance": ["approved", "rejected"]
+      }
+    }
+  },
+  "audit_trail": {
+    "fields": [
+      "actor_role",
+      "from_status",
+      "to_status",
+      "ts"
+    ]
+  },
+  "policy_reference": "policy/approval_limits.json",
+  "category_restrictions": "Claims of type 'other' undergo additional documentation review steps before approval."
+}

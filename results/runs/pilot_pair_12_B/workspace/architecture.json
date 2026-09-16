@@ -1,0 +1,39 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "data_model": {
+    "tables": {
+      "todos": {
+        "id": "UUID",
+        "title": "String",
+        "description": "Text",
+        "isComplete": "Boolean",
+        "reminderDatetime": "Timestamp",
+        "createdAt": "Timestamp",
+        "updatedAt": "Timestamp"
+      }
+    }
+  },
+  "module_boundaries": [
+    "TODO Module",
+    "Notification Module",
+    "Auth Module (Frozen)",
+    "Utilities Module (Frozen Components)"
+  ],
+  "frozen_modules": [
+    "auth/",
+    "src/utils/"
+  ],
+  "requirements.commitments": {
+    "load": {
+      "requests_per_second": 100,
+      "latency": {
+        "p99_below_ms": 200
+      }
+    }
+  }
+}

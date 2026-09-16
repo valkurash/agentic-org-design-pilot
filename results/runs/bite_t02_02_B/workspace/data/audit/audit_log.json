@@ -1,0 +1,23 @@
+[
+  {
+    "actor_role": "Manager",
+    "from_status": "submitted",
+    "to_status": "approved",
+    "ts": "2023-11-27T11:55:00Z",
+    "claim_id": "claim_within_limit"
+  },
+  {
+    "actor_role": "Manager",
+    "from_status": "submitted",
+    "to_status": "needs_finance",
+    "ts": "2023-11-27T11:56:00Z",
+    "claim_id": "claim_over_limit"
+  },
+  {
+    "actor_role": "Manager",
+    "from_status": "submitted",
+    "to_status": "rejected",
+    "ts": "2023-11-27T11:57:00Z",
+    "claim_id": "claim_other"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "modules": {
+    "repository_layer": "src/repo/",
+    "store": "data/store.json",
+    "rule": "All persistent writes go through src/repo/; no direct store writes from handlers"
+  },
+  "pr_state_machine": {
+    "states": ["draft", "open", "in_review", "approved", "changes_requested", "merged", "closed"],
+    "transitions": {
+      "draft": ["open"],
+      "open": ["in_review", "closed"],
+      "in_review": ["approved", "changes_requested", "closed"],
+      "changes_requested": ["in_review", "closed"],
+      "approved": ["merged", "closed"]
+    }
+  },
+  "_comment": "FROZEN for execution-mode run (task_03 R1) — do not edit to absorb review findings"
+}

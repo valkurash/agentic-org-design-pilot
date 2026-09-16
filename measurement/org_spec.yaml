@@ -1,0 +1,157 @@
+# org_spec.yaml — Condition B coordination charter (DSR artifact)
+# Version: 0.2 · Approved: 17 July 2026 (Valentina)
+# Status: approved — soft enforce in experiment stand
+
+schema_version: "0.2"
+
+# WP enforcement policy (see experiment_plan.md §4 — anti-tautology):
+#   soft = rules in prompts + logged predicates; agent CAN violate; detectors count behavior
+#   hard = tool/filesystem blocks — NOT for primary INC/DDV endpoints in WP
+enforcement_mode: soft
+
+organization:
+  name: instrumented_slice_v1
+  stages:
+    - requirements
+    - architecture
+    - code
+    - review
+
+roles:
+  requirements:
+    agent_id: pm
+    domains:
+      - scope
+      - priorities
+      - acceptance_criteria
+      - constraints
+      - non_goals
+    may_not_decide:
+      - interfaces
+      - data_model
+      - implementation
+      - tech_stack
+
+  architecture:
+    agent_id: architect
+    domains:
+      - interfaces
+      - data_model
+      - module_boundaries
+      - tech_stack
+    may_not_decide:
+      - scope_expansion
+      - implementation
+      - acceptance_criteria_override
+
+  code:
+    agent_id: coder
+    domains:
+      - implementation
+      - refactors_within_arch
+    may_not_decide:
+      - scope
+      - interfaces
+      - data_model
+      - auth_policy
+      - non_goals
+
+  review:
+    agent_id: reviewer
+    domains:
+      - approve_reject
+      - quality_findings
+    may_not_decide:
+      - scope_change
+      - architecture_change
+      - new_features
+
+# P6/P7: structured commitments at each handoff (not prose-only)
+commitments:
+  requirements:
+    required_fields:
+      - scope
+      - constraints
+      - non_goals
+      - acceptance_criteria
+    format: structured_yaml_block
+
+  architecture:
+    required_fields:
+      - interfaces
+      - data_model
+      - module_boundaries
+      - frozen_modules
+    must_reference:
+      - requirements.commitments
+    format: architecture.json
+
+  code:
+    required_fields:
+      - files_changed
+      - implements_interfaces
+    must_reference:
+      - architecture.json
+      - requirements.constraints
+
+  review:
+    required_fields:
+      - verdict
+      - violations_found
+    must_reference:
+      - requirements.commitments
+      - architecture.json
+
+# P3/P5: escalation — authority by exception
+escalation:
+  events:
+    - id: ask
+      description: Stop and request decision from domain owner or human
+      required_fields: [predicate, target_role, question]
+
+  predicates:
+    - id: domain_mismatch
+      rule: decision.domain not in actor.domains
+      action: stop_and_ask(owner_of(decision.domain))
+
+    - id: abduction
+      rule: reasoning_type == abduction
+      action: stop_and_ask(human)
+
+    - id: ambiguity
+      rule: requirement.ambiguous == true AND stage in [architecture, code]
+      action: stop_and_ask(requirements)
+
+    - id: frozen_module_touch
+      rule: target_path matches any frozen_modules glob
+      action: stop_and_ask(architecture)
+
+# Reasoning types (Konsynski, Kathuria & Karhade layer)
+reasoning_types:
+  deduction: Apply fixed rule or constraint (e.g., rate limit numeric threshold)
+  induction: Generalize from examples or patterns in spec
+  abduction: Judgment under ambiguity, trade-offs, product risk
+
+# Supervisor / human (delegation metrics p_a, p_p)
+supervisor:
+  human_role: human
+  ex_ante_override_allowed: true   # p_a
+  ex_post_review_required: false   # p_p — set true for escalation-augmented arm
+
+# Mode gate for rework metric (P4)
+run_modes:
+  search: exploratory alternatives within stage — rework not counted
+  execution: fixed acceptance criteria — rework counted if cross-stage rollback
+
+logging:
+  required_event_fields:
+    - run
+    - seed
+    - cond
+    - stage
+    - agent
+    - event
+    - domain
+    - reasoning
+    - refs
+    - content_hash

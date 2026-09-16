@@ -1,0 +1,54 @@
+{
+  "interfaces": [
+    "POST /api/todos",
+    "GET /api/todos",
+    "DELETE /api/todos/{id}",
+    "POST /api/reminders"
+  ],
+  "modules": {
+    "TODO Management": {
+      "description": "Handles CRUD for TODO items.",
+      "directory": "src/todos"
+    },
+    "Reminder Management": {
+      "description": "Manages reminders, separate from TODOs.",
+      "directory": "src/reminders"
+    },
+    "Notification": {
+      "description": "Handles notifications for reminders.",
+      "directory": "src/notifications"
+    }
+  },
+  "constraints": [
+    "Use Node.js with Express for the application.",
+    "Do not modify the existing authentication module under auth/.",
+    "Integrate authentication with session middleware from auth/middleware.js.",
+    "Use existing date validation in src/utils/dateValidation.js and do not modify.",
+    "Ensure the API handles 100 requests/second.",
+    "Deploy in a single-region setup without message queues.",
+    "Reminder datetime must be in ISO-8601 format."
+  ],
+  "performance": {
+    "loadTest": "100 requests/second for 60 seconds with p99 latency of 200 ms"
+  },
+  "module_boundaries": {
+    "todos": "TODO CRUD only — no reminder-specific fields on the Todo model",
+    "reminders": "Separate Reminder entity/module for schedule + notify"
+  },
+  "data_model": {
+    "Todo": {
+      "id": "UUID",
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "Reminder": {
+      "id": "UUID",
+      "todo_id": "UUID",
+      "reminder_datetime": "datetime",
+      "notified": "boolean"
+    }
+  }
+}
